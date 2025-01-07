@@ -2,9 +2,9 @@
 #include <PubSubClient.h>
 
 // WiFi and MQTT configuration
-const char *ssid = "MiFibra-CE8F";
-const char *password = "KCiX33qi";
-const char *mqttServer = "192.168.1.x"; // Replace with your broker's IP address
+const char *ssid = "Nothing_9181";
+const char *password = "faraji12345";
+const char *mqttServer = "192.168.56.1"; // Replace with your broker's IP address
 const int mqttPort = 1883;
 const char *mqttUser = "duo_hz";
 const char *mqttPassword = "^D2E^%U2";
@@ -48,7 +48,7 @@ void setupWiFi()
 void callback(char *topic, byte *payload, unsigned int length)
 {
   String message = "";
-  for (int i = 0; i < length; i++)
+  for (unsigned int i = 0; i < length; i++)
   {
     message += (char)payload[i];
   }
@@ -64,7 +64,6 @@ void callback(char *topic, byte *payload, unsigned int length)
     if (canMove && currentGameState == "moving")
     {
       Serial.println("Movement phase - Can move");
-      blinkGreenLed();
     }
   }
   else if (String(topic) == topicGameState)
@@ -154,3 +153,111 @@ void loop()
     Serial.println("Game has ended");
   }
 }
+
+// Buzzer + button
+
+// #define BUTTON_PIN 25 // ESP32 GPIO pin to which the button is connected
+// #define BUZZER_PIN 12
+
+// #include "pitches.h"
+
+// // notes in the melody:
+// int melody[] = {
+//     NOTE_E5, NOTE_E5, NOTE_E5,
+//     NOTE_E5, NOTE_E5, NOTE_E5,
+//     NOTE_E5, NOTE_G5, NOTE_C5, NOTE_D5,
+//     NOTE_E5,
+//     NOTE_F5, NOTE_F5, NOTE_F5, NOTE_F5,
+//     NOTE_F5, NOTE_E5, NOTE_E5, NOTE_E5, NOTE_E5,
+//     NOTE_E5, NOTE_D5, NOTE_D5, NOTE_E5,
+//     NOTE_D5, NOTE_G5};
+
+// // note durations: 4 = quarter note, 8 = eighth note, etc, also called tempo:
+// int noteDurations[] = {
+//     8, 8, 4,
+//     8, 8, 4,
+//     8, 8, 8, 8,
+//     2,
+//     8, 8, 8, 8,
+//     8, 8, 8, 16, 16,
+//     8, 8, 8, 8,
+//     4, 4};
+
+// void buzzer();
+
+// void setup()
+// {
+//   Serial.begin(115200);              // initialize serial
+//   pinMode(BUTTON_PIN, INPUT_PULLUP); // set ESP32 pin to input mode with pull-up resistor
+//   pinMode(BUZZER_PIN, OUTPUT);       // set ESP32 pin to output mode
+//   Serial.println("Press the button to play the melody");
+// }
+
+// void loop()
+// {
+//   if (digitalRead(BUTTON_PIN) == LOW)
+//   { // button is pressed
+//     Serial.println("The button is being pressed");
+//     buzzer();
+//   }
+// }
+
+// void buzzer()
+// {
+//   // iterate over the notes of the melody:
+//   int size = sizeof(noteDurations) / sizeof(int);
+
+//   for (int thisNote = 0; thisNote < size; thisNote++)
+//   {
+//     // to calculate the note duration, take one second divided by the note type.
+//     // e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
+//     int noteDuration = 1000 / noteDurations[thisNote];
+//     tone(BUZZER_PIN, melody[thisNote], noteDuration);
+
+//     // to distinguish the notes, set a minimum time between them.
+//     // the note's duration + 30% seems to work well:
+//     int pauseBetweenNotes = noteDuration * 1.30;
+//     delay(pauseBetweenNotes);
+//     // stop the tone playing:
+//     noTone(BUZZER_PIN);
+//   }
+// }
+
+// LCD Screen
+
+// #include <Arduino.h>
+// #include <LiquidCrystal_I2C.h>
+// #include <Wire.h>
+
+// // set the LCD number of columns and rows
+// int lcdColumns = 16;
+// int lcdRows = 2;
+
+// // set LCD address, number of columns and rows
+// // if you don't know your display address, run an I2C scanner sketch
+// LiquidCrystal_I2C lcd(0x27, lcdColumns, lcdRows);
+
+// void setup()
+// {
+//   Wire.begin(33, 32);
+//   // initialize LCD
+//   lcd.init();
+//   // turn on LCD backlight
+//   lcd.backlight();
+// }
+
+// void loop()
+// {
+//   // set cursor to first column, first row
+//   lcd.setCursor(0, 0);
+//   // print message
+//   lcd.print("Hello, World!");
+//   delay(1000);
+//   // clears the display to print new message
+//   lcd.clear();
+//   // set cursor to first column, second row
+//   lcd.setCursor(0, 1);
+//   lcd.print("Hello, World!");
+//   delay(1000);
+//   lcd.clear();
+// }
