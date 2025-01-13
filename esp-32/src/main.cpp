@@ -6,7 +6,7 @@
 // WiFi and MQTT configuration
 const char *ssid = "Nothing_9181";
 const char *password = "faraji12345";
-const char *mqttServer = "192.168.47.222"; // Replace with your broker's IP address
+const char *mqttServer = "agrospai.udl.cat"; // Replace with your broker's IP address
 const int mqttPort = 1883;
 const char *mqttUser = "duo_hz";
 const char *mqttPassword = "^D2E^%U2";
@@ -16,7 +16,7 @@ WiFiClient espClient;
 PubSubClient client(espClient);
 
 // Unique Base ID
-const char *baseId = "duo_hz";
+const char *baseId = "duo_hz_base";
 
 // MQTT topics
 const char *topicSubscribeState = "state/stage";
@@ -250,6 +250,7 @@ void handleOperatorDecision()
       tone(BUZZER_PIN, 1000, 200); // Beep for shoot
       Serial.println("Decision: Shoot published");
       decisionTaken = true;
+      buttonPressed = false;
     }
   }
 }

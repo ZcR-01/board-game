@@ -4,7 +4,7 @@
 // WiFi and MQTT configuration
 const char *ssid = "Nothing_9181";
 const char *password = "faraji12345";
-const char *mqttServer = "192.168.47.222";
+const char *mqttServer = "agrospai.udl.cat";
 const int mqttPort = 1883;
 const char *mqttUser = "duo_hz";
 const char *mqttPassword = "^D2E^%U2";
@@ -137,6 +137,11 @@ void reconnectMQTT()
 // Detect movement when the magnetic field disconnects and reconnects
 void detectMovement()
 {
+  if (currentGameState == "joining")
+  {
+    return;
+  }
+
   if (currentGameState == "moving" && canMove)
   {
     currentMagnetState = digitalRead(hallSensorPin) == LOW; // LOW = magnet detected
